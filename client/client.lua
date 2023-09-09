@@ -13,6 +13,11 @@ RegisterNetEvent('razed-casino:client:chooseGame', function()
                 iconColor = Config.CasinoColor
             },
             {
+                title = 'Notice: Minimum withdrawal is '..Config.MinimumWithdrawal..' coins.',
+                icon = 'fa-solid fa-hand-holding-dollar',
+                iconColor = Config.CasinoColor
+            },
+            {
                 title = 'Crash',
                 description = 'Like playing the stock market, the objective of crash is to buy low and sell high. Its all a game of luck!',
                 icon = 'fa-solid fa-arrow-trend-up',
@@ -29,15 +34,10 @@ RegisterNetEvent('razed-casino:client:chooseGame', function()
             },
             {
                 title = 'Withdraw Crypto',
-                description = 'Withdraw your crypto: '..Config.CryptoWithdrawalFeeShown.. '% Fee',
+                description = 'Withdraw your crypto: '..Config.CryptoWithdrawalFeeShown.. '% Fee. Minimum withdrawal is '..Config.MinimumWithdrawal..' coins.',
                 icon = 'dollar-sign',
                 iconColor = Config.CasinoColor,
                 serverEvent = 'razed-casino:server:withdrawcrypto'
-            },
-            {
-                title = 'Notice: Minimum withdrawal is '..Config.MinimumWithdrawal..' coins.',
-                icon = 'fa-brands fa-bitcoin',
-                iconColor = Config.CasinoColor
             }
       }}
     )
