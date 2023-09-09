@@ -13,11 +13,6 @@ RegisterNetEvent('razed-casino:client:chooseGame', function()
                 iconColor = Config.CasinoColor
             },
             {
-                title = 'Notice: Minimum withdrawal is '..Config.MinimumWithdrawal..' coins.',
-                icon = 'fa-solid fa-hand-holding-dollar',
-                iconColor = Config.CasinoColor
-            },
-            {
                 title = 'Crash',
                 description = 'Like playing the stock market, the objective of crash is to buy low and sell high. Its all a game of luck!',
                 icon = 'fa-solid fa-arrow-trend-up',
@@ -74,18 +69,12 @@ end)
 end)
 
 RegisterNetEvent('razed-casino:client:crashGame', function()
-    QBCore.Functions.TriggerCallback('razed-casino:server:showCasinoBalance', function(casinobalance)
     QBCore.Functions.TriggerCallback('razed-casino:server:checkGameStarted', function(started)
     QBCore.Functions.TriggerCallback('razed-casino:server:checkMultiplier', function(crashmultiplier)
     lib.registerContext({
         id = 'crashgame',
         title = 'In Game - Crash',
         options = {
-            {
-                title = 'Casino Balance: '..casinobalance,
-                icon = 'fa-brands fa-bitcoin',
-                iconColor = Config.CasinoColor
-            },
             {
                 title = 'Multiplier: '..crashmultiplier..'x',
                 icon = 'fa-brands fa-bitcoin',
@@ -94,16 +83,18 @@ RegisterNetEvent('razed-casino:client:crashGame', function()
             },
             {
                 title = 'Bet',
-                description = 'Choose the amount you want to bet.',
+                description = 'Choose the amount from your balance you want to bet.',
                 icon = 'money-bill-wave',
-                iconColor = Config.CasinoColor
+                iconColor = Config.CasinoColor,
+                event = 'razed-casino:client:betCrashCrypto'
             },
             {
                 title = 'Cashout',
                 description = 'Cashout your current multiplier.',
                 icon = 'rocket',
                 disabled = started,
-                iconColor = Config.CasinoColor
+                iconColor = Config.CasinoColor,
+                serverEvent = 'razed-casino:server:crashCashout'
             },
             {
                 title = 'Leave',
@@ -117,9 +108,18 @@ RegisterNetEvent('razed-casino:client:crashGame', function()
 end)
 end)
 end)
+
+RegisterNetEvent('razed-casino:client:betCrashCrypto', function()
+    local input = lib.inputDialog('Bet Your Balance', {
+        {type = 'number', label = 'Bet Amount', description = 'The amount of coins to bet. Minimum: '..Config.CrashBetMinimum..' coins to bet.', default = Config.CrashBetMinimum, min = Config.CrashBetMinimum, required = true, icon = 'fa-brands fa-bitcoin'}
+    })
+    if not input then
+        TriggerEvent('razed-casino:client:crashGame')
+    else
+        TriggerServerEvent("razed-casino:server:crashBet", input[1])
+        TriggerEvent('razed-casino:client:crashGame')
+    end
 end)
-
-
 
 RegisterNetEvent('razed-casino:client:depositCrypto', function()
     local input = lib.inputDialog('Deposit Crypto', {
