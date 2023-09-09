@@ -1,4 +1,4 @@
-**This is WIP project.**
+**This is WIP project. DO NOT USE COMMERCIALLY.**
 
 # Installation
 * Drag and drop `razed-casino`
