@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local BetAmount = 0.0
 
 RegisterNetEvent('razed-casino:server:withdrawcrypto', function()
     local src = source
@@ -111,7 +112,7 @@ RegisterNetEvent('razed-casino:server:startCrashGame', function()
     local Player = QBCore.Functions.GetPlayer(src)
     Gamenotstarted = true
     local mathrandom = 1000
-    local multiplier = 0.0
+    Multiplier = 0.0
 
     QBCore.Functions.CreateCallback('razed-casino:server:checkGameStarted', function(source, cb)
         local src = source
@@ -124,8 +125,8 @@ RegisterNetEvent('razed-casino:server:startCrashGame', function()
     QBCore.Functions.CreateCallback('razed-casino:server:checkMultiplier', function(source, cb)
         local src = source
         local Player = QBCore.Functions.GetPlayer(src)
-        local crashmultiplier = multiplier
-    
+        local crashmultiplier = Multiplier
+
         cb(crashmultiplier)
     end)
 
@@ -140,7 +141,7 @@ RegisterNetEvent('razed-casino:server:startCrashGame', function()
 
     TriggerClientEvent("ox_lib:notify", src, {
         title = 'You joined a game.',
-        duration = '300',
+        duration = 1000,
         type = 'success'
     })
 
@@ -258,14 +259,71 @@ RegisterNetEvent('razed-casino:server:startCrashGame', function()
 
     Gamenotstarted = false
 
-    while Gamenotstarted == false do
-        Wait(100)
+    TriggerClientEvent('razed-casino:client:crashGame', src)
 
+    Wait(1000)
+
+    while not Gamenotstarted do
+        Wait(1000)
+        if math.random(Config.CrashChanceFrom, Config.CrashChanceTo) == math.random(Config.CrashChanceFrom, Config.CrashChanceTo) then
+            TriggerClientEvent("ox_lib:notify", src, {
+                title = 'Rocket Crashed!',
+                description = 'Ah damn, you lost!',
+                duration = 5000,
+                type = 'error'
+            })
+            Gamenotstarted = true
+            TriggerClientEvent('razed-casino:client:crashGame', src)
+            Multiplier = 0.0
+            break
+        else
+        Multiplier = Multiplier + math.random(1, 5) / 10
+        TriggerClientEvent('razed-casino:client:crashGame', src)
+        Wait(1000)
     end
+end
+end)
+
+RegisterNetEvent('razed-casino:server:crashBet', function(id1)
+    BetAmount = id1
+
+    QBCore.Functions.CreateCallback('razed-casino:server:showCrashBet', function(source, cb)
+        local src = source
+        local crashBetAmount = BetAmount
+    
+        cb(crashBetAmount)
+    end)
 end)
 
 RegisterNetEvent('razed-casino:server:crashCashout', function()
-    Gamenotstarted = true
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local amount = 20 * Multiplier
+    local row = MySQL.single.await('SELECT `casinobalance` FROM `players` WHERE `citizenid` = ?', {
+        Player.PlayerData.citizenid
+    })
 
-    
+    if Gamenotstarted == false then
+        TriggerClientEvent('razed-casino:client:crashGame', src)
+        Gamenotstarted = true
+        row.casinobalance = row.casinobalance + amount
+        print(Multiplier)
+        Wait(500)
+        local id = MySQL.update.await('UPDATE players SET casinobalance = ? WHERE citizenid = ?', {
+            row.casinobalance, Player.PlayerData.citizenid
+        })
+        TriggerClientEvent("ox_lib:notify", src, {
+            title = 'Successfull Cashout!',
+            description = 'You have successfully cashed out '..row.casinobalance..' coins with a multiplier of '..Multiplier..'x.',
+            duration = 5000,
+            type = 'success'
+        })
+    else
+        TriggerClientEvent("ox_lib:notify", src, {
+            title = 'Cashout Failed!',
+            description = 'You cannot cashout when you lost!',
+            duration = 2500,
+            type = 'error'
+        })
+    end
 end)
