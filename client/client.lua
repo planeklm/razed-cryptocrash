@@ -22,8 +22,8 @@ RegisterNetEvent('razed-casino:client:chooseGame', function()
                 description = 'Like playing the stock market, the objective of crash is to buy low and sell high. Its all a game of luck!',
                 icon = 'fa-solid fa-arrow-trend-up',
                 arrow = true,
-                iconColor = Config.CasinoColor
-                --serverEvent = 'razed-cryptomining:server:buyCryptoMiner'
+                iconColor = Config.CasinoColor,
+                menu = 'crashmenu'
             },
             {
                 title = 'Deposit Crypto',
@@ -45,12 +45,85 @@ RegisterNetEvent('razed-casino:client:chooseGame', function()
     lib.showContext('choosegame')
 
     TriggerEvent('razed-casino:client:casinoNotif')
+
+    lib.registerContext({
+        id = 'crashmenu',
+        title = Config.CasinoName..' - Crash',
+        options = {
+            {
+                title = 'Casino Balance: '..casinobalance,
+                icon = 'fa-brands fa-bitcoin',
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Join a game',
+                description = 'Quickly join a crash game with our hyper engine, only at '..Config.CasinoName..'.',
+                icon = 'rocket',
+                serverEvent = 'razed-casino:server:startCrashGame',
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Go back',
+                icon = 'arrow-left',
+                iconColor = Config.CasinoColor,
+                event = 'razed-casino:client:chooseGame'
+            }
+      }}
+    )
 end)
 end)
 
+RegisterNetEvent('razed-casino:client:crashGame', function()
+    QBCore.Functions.TriggerCallback('razed-casino:server:showCasinoBalance', function(casinobalance)
+    QBCore.Functions.TriggerCallback('razed-casino:server:checkGameStarted', function(started)
+    QBCore.Functions.TriggerCallback('razed-casino:server:checkMultiplier', function(crashmultiplier)
+    lib.registerContext({
+        id = 'crashgame',
+        title = 'In Game - Crash',
+        options = {
+            {
+                title = 'Casino Balance: '..casinobalance,
+                icon = 'fa-brands fa-bitcoin',
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Multiplier: '..crashmultiplier..'x',
+                icon = 'fa-brands fa-bitcoin',
+                description = 'Shows the current multiplier for your crypto.',
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Bet',
+                description = 'Choose the amount you want to bet.',
+                icon = 'money-bill-wave',
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Cashout',
+                description = 'Cashout your current multiplier.',
+                icon = 'rocket',
+                disabled = started,
+                iconColor = Config.CasinoColor
+            },
+            {
+                title = 'Leave',
+                icon = 'arrow-left',
+                iconColor = Config.CasinoColor,
+                event = 'razed-casino:client:chooseGame'
+            }
+      }}
+    )
+    lib.showContext('crashgame')
+end)
+end)
+end)
+end)
+
+
+
 RegisterNetEvent('razed-casino:client:depositCrypto', function()
     local input = lib.inputDialog('Deposit Crypto', {
-        {type = 'number', label = 'Crypto Amount', description = 'The amount of coins to deposit. Minimum: '..Config.MinimumDeposit..' coins to deposit.', default = Config.MinimumDeposit, minimun = Config.MinimumDeposit, required = true, icon = 'dollar-sign'}
+        {type = 'number', label = 'Crypto Amount', description = 'The amount of coins to deposit. Minimum: '..Config.MinimumDeposit..' coins to deposit.', default = Config.MinimumDeposit, min = Config.MinimumDeposit, required = true, icon = 'fa-brands fa-bitcoin'}
     })
     if not input then return end
         TriggerServerEvent("razed-casino:server:addCrypto", input[1])
