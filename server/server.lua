@@ -105,3 +105,167 @@ QBCore.Functions.CreateCallback('razed-casino:server:showCasinoBalance', functio
 
     cb(casinobalance)
 end)
+
+RegisterNetEvent('razed-casino:server:startCrashGame', function()
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    Gamenotstarted = true
+    local mathrandom = 1000
+    local multiplier = 0.0
+
+    QBCore.Functions.CreateCallback('razed-casino:server:checkGameStarted', function(source, cb)
+        local src = source
+        local Player = QBCore.Functions.GetPlayer(src)
+        local notstarted = Gamenotstarted
+    
+        cb(notstarted)
+    end)
+
+    QBCore.Functions.CreateCallback('razed-casino:server:checkMultiplier', function(source, cb)
+        local src = source
+        local Player = QBCore.Functions.GetPlayer(src)
+        local crashmultiplier = multiplier
+    
+        cb(crashmultiplier)
+    end)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Waiting for game...',
+        description = 'Please wait while we get you into a game.',
+        duration = mathrandom,
+        type = 'info'
+    })
+
+    Wait(mathrandom)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'You joined a game.',
+        duration = '300',
+        type = 'success'
+    })
+
+    TriggerClientEvent('razed-casino:client:crashGame', src)
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 30 seconds.',
+        description = 'Please place your bets now.',
+        duration = 10000,
+        type = 'info'
+    })
+
+    Wait(10000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 20 seconds.',
+        description = 'Please place your bets now.',
+        duration = 10000,
+        type = 'info'
+    })
+
+    Wait(10000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 10 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 9 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 8 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 7 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 6 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 5 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 4 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 3 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 2 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    TriggerClientEvent("ox_lib:notify", src, {
+        title = 'Game will start in 1 seconds.',
+        description = 'Please place your bets now.',
+        duration = 1000,
+        type = 'info'
+    })
+
+    Wait(1000)
+
+    Gamenotstarted = false
+
+    while Gamenotstarted == false do
+        Wait(100)
+
+    end
+end)
+
+RegisterNetEvent('razed-casino:server:crashCashout', function()
+    Gamenotstarted = true
+
+    
+end)
