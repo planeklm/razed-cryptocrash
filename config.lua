@@ -4,8 +4,8 @@ Config.CrashProp = {
     `prop_arcade_01`
 }
 
-Config.CasinoName = 'Emerald Casino'
-Config.CasinoColor = '#B993D6'
+Config.CasinoName = 'Emerald Online Casino'
+Config.CasinoColor = '#B993D6' -- This is a hex color code, by default it is purple
 
 Config.Target = 'qb' -- 'qb' or 'ox' depending on the target you use
 
