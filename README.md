@@ -1,4 +1,6 @@
-**This is WIP project. DO NOT USE COMMERCIALLY.**
+![RazedCasino](https://github.com/planeklm/razed-casino/assets/91488137/d5fdf07f-a71a-45be-9d96-72b1b4b07ffd)
+
+**This is WIP project.**
 
 # Installation
 * Drag and drop `razed-casino`
