@@ -5,7 +5,7 @@ Config.CrashProp = {
 }
 
 Config.CasinoName = 'Emerald Online Casino'
-Config.CasinoColor = '#B993D6' -- This is a hex color code, by default it is purple
+Config.CasinoColor = '#50c878' -- This is a hex color code, by default it is purple
 
 Config.Target = 'qb' -- 'qb' or 'ox' depending on the target you use
 
@@ -18,3 +18,8 @@ Config.CryptoWithdrawalFee = '0.90' -- This is a percentage of the fee when with
 
 Config.Crypto = 'qb' -- 'qb' or 'renewed-phone' depending on the crypto resource you use
 Config.RenewedCryptoType = "gne" -- "gne" or "shung" or "xcoin" or "lme" - only change if using renewed phone
+
+Config.CrashChanceFrom = 1
+Config.CrashChanceTo = 10
+Config.CrashBetMinimum  = 1
+Config.CrashBetMaximum  = 1000
