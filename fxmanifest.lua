@@ -10,11 +10,13 @@ version '1.0'
 lua54 'yes'
 
 client_script {
-    'client/client.lua'
+    'client/client.lua',
+    'client/crashclient.lua'
 }
 
 server_script {
     'server/server.lua',
+    'server/crashserver.lua',
     '@oxmysql/lib/MySQL.lua'
 }
 
