@@ -1,7 +1,7 @@
 ![RazedCasino](https://github.com/planeklm/razed-casino/assets/91488137/d5fdf07f-a71a-45be-9d96-72b1b4b07ffd)
 
 **Hello FiveM community!👋**\
-We have created an crypto crash game for the qbcore framework. The casino uses a crypto balance to play the crash game. Become your favourite gamblining streamer.
+We have created an crypto crash game for the qbcore framework. The casino uses a crypto balance to play the crash game. Become your favourite gambling streamer.
 
 **This is WIP project.**
 
