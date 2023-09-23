@@ -8,6 +8,7 @@ Config.CasinoName = 'Emerald Online Casino'
 Config.CasinoColor = '#50c878' -- This is a hex color code, by default it is purple
 
 Config.Target = 'qb' -- 'qb' or 'ox' depending on the target you use
+Config.AccessItem = 'phone' -- Change this to an item you want your players to have to access the 3rd eye (target) menu.
 
 Config.MinimumWithdrawal = 1
 Config.MinimumDeposit = 5
