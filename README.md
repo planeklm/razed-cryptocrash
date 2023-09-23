@@ -10,7 +10,7 @@ We have created an crypto crash game for the qbcore framework. The casino uses a
 * **Customize all settings** - Customize the colors, name of casino, minimum and maximum withdrawal and deposit, crash game chances.
 
 # Preview
-Coming soon.
+[Click Here](https://streamable.com/s9wk3h)
 
 # Installation
 * Drag and drop `razed-cryptocrash`
