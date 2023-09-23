@@ -78,10 +78,12 @@ CreateThread(function()
             { 
                 icon = "fa-solid fa-arrow-trend-up",
                 label = "Open Casino",
-                event = "razed-casino:client:chooseGame"
+                event = "razed-casino:client:chooseGame",
+                item = Config.AccessItem
+
             },
           },
-          distance = 3.0,
+          distance = 1.5,
     })
 else if Config.Target == 'ox' then
     exports.ox_target:addModel(CrashProp, {
@@ -89,10 +91,11 @@ else if Config.Target == 'ox' then
             {
                 icon = "fa-solid fa-arrow-trend-up",
                 label = "Open casino",
-                event = "razed-casino:client:chooseGame"
+                event = "razed-casino:client:chooseGame",
+                item = Config.AccessItem
             },
         },
-        distance = 3.0,
+        distance = 1.5,
     })
     end
   end
